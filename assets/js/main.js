@@ -62,17 +62,47 @@
       el.classList.add('is-visible');
     });
   } else {
+    var pending = Array.prototype.slice.call(revealables);
+
+    var show = function (el) {
+      el.classList.add('is-visible');
+      observer.unobserve(el);
+      var i = pending.indexOf(el);
+      if (i > -1) pending.splice(i, 1);
+    };
+
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+        if (entry.isIntersecting || entry.boundingClientRect.bottom < 0) {
+          show(entry.target);
+        }
       });
     }, { threshold: 0.01, rootMargin: '0px 0px -40px 0px' });
 
     Array.prototype.forEach.call(revealables, function (el) {
       observer.observe(el);
     });
+
+    /* An instant jump — an #anchor deep link, or the browser restoring scroll
+       position on reload — moves elements straight from below the viewport to
+       above it without ever crossing it, so no intersection callback fires and
+       they would stay invisible. Sweep anything already passed. */
+    var sweeping = false;
+
+    var sweepPassed = function () {
+      sweeping = false;
+      for (var i = pending.length - 1; i >= 0; i--) {
+        if (pending[i].getBoundingClientRect().bottom < 0) show(pending[i]);
+      }
+    };
+
+    window.addEventListener('scroll', function () {
+      if (sweeping || !pending.length) return;
+      sweeping = true;
+      window.requestAnimationFrame(sweepPassed);
+    }, { passive: true });
+
+    window.addEventListener('load', sweepPassed);
   }
 
   /* --- Scroll progress bar ---------------------------------------------- */
