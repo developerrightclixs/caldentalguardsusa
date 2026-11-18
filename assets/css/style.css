@@ -35,9 +35,9 @@
   --accent:        var(--red-500);
 
   /* Type */
-  --display: "Afacad", "Barlow Condensed", system-ui, sans-serif;
-  --body: "Urbanist", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --label: "Afacad", "Urbanist", system-ui, sans-serif;
+  --display: "Raleway", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --label: "Manrope", system-ui, sans-serif;
 
   /* Layout */
   --wrap: 1280px;
@@ -93,16 +93,16 @@ a { color: inherit; }
    Caps are reserved for small labels (.eyebrow, .card__label, buttons). */
 h1, h2, h3, h4 {
   font-family: var(--display);
-  font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -.025em;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.02em;
   margin: 0 0 .4em;
   text-wrap: balance;
 }
 
-h1 { font-size: clamp(2.75rem, 7.4vw, 6rem); line-height: .96; }
-h2 { font-size: clamp(2.1rem, 5vw, 3.9rem); line-height: .99; }
-h3 { font-size: clamp(1.4rem, 2.5vw, 1.95rem); }
+h1 { font-size: clamp(2.4rem, 6.2vw, 4.9rem); line-height: 1.02; font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 4.1vw, 3.1rem); line-height: 1.07; }
+h3 { font-size: clamp(1.25rem, 2.1vw, 1.6rem); }
 h4 { font-size: clamp(1.1rem, 1.7vw, 1.35rem); letter-spacing: -.012em; }
 
 p { margin: 0 0 1.1em; }
@@ -360,9 +360,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .logo__sub {
   font-family: var(--body);
-  font-size: .56rem;
+  font-size: .64rem;
   font-weight: 600;
-  letter-spacing: .34em;
+  letter-spacing: .28em;
   text-transform: uppercase;
   color: var(--slate-300);
   margin-top: .22rem;
@@ -1530,23 +1530,51 @@ ul { margin: 0; padding: 0; list-style: none; }
   .guarantee { grid-template-columns: 1fr; text-align: center; justify-items: center; }
 }
 
+@media (max-width: 1024px) {
+  /* On a narrow viewport a 42px horizontal slide pushes content outside the
+     viewport (clipped by overflow-x) and reads as a glitch rather than a
+     reveal. Collapse the directional variants to a plain fade-up. */
+  .reveal[data-reveal="left"],
+  .reveal[data-reveal="right"],
+  .reveal[data-reveal="scale"] {
+    transform: translateY(26px);
+  }
+}
+
 @media (max-width: 700px) {
   /* The strip's own 2.4:1 ratio would shrink the guards to nothing on a
      phone, so crop the sides instead and hold a usable height. */
   .hero { min-height: auto; }
 
+  /* Full-bleed cover on a phone rather than a bottom strip. A fixed height
+     here would fight the inherited `inset: 0` — top wins over bottom, which
+     anchored the image to the top of the hero and ran the brand swoosh
+     straight through the subheading. */
   .hero__media {
+    inset: 0;
     aspect-ratio: auto;
-    height: clamp(200px, 34vh, 300px);
+    height: auto;
   }
 
-  .hero__media img { object-position: center 60%; }
+  .hero__media img { object-position: center 58%; }
 
-  .hero__inner { padding-block: clamp(2.5rem, 9vw, 4rem) clamp(11rem, 36vw, 15rem); }
+  .hero__media::after {
+    background:
+      radial-gradient(ellipse at 50% 42%, rgba(5, 13, 28, .46) 0%, rgba(5, 13, 28, .84) 74%),
+      linear-gradient(180deg, rgba(5, 13, 28, .9) 0%, rgba(5, 13, 28, .5) 44%, rgba(5, 13, 28, .88) 100%);
+  }
+
+  .hero__inner { padding-block: clamp(3.5rem, 12vw, 5.5rem); }
 }
 
 @media (max-width: 600px) {
   body { font-size: 16px; }
+
+  /* "Get Fitted Near You" + pin icon wraps to two lines on a 360px device
+     at the desktop large-button size. */
+  .btn--lg { padding: 1rem 1.25rem; font-size: .9rem; }
+  .btn { padding: .9rem 1.25rem; }
+
   .form__row { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr; }
   .footer__bottom { flex-direction: column; text-align: center; }
@@ -1764,7 +1792,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 .logo-row div:hover { opacity: 1; color: var(--navy-700); }
-.logo-row small { display: block; font-size: .54rem; letter-spacing: .06em; font-weight: 600; white-space: nowrap; }
+.logo-row small { display: block; font-size: .64rem; letter-spacing: .04em; font-weight: 600; white-space: nowrap; }
 
 /* --- Product callout diagram -------------------------------------------- */
 .diagram {
@@ -1866,4 +1894,350 @@ ul { margin: 0; padding: 0; list-style: none; }
   .diagram__icon { width: 46px; height: 46px; }
   .diagram__icon svg { width: 22px; height: 22px; }
   .logo-row div { font-size: .92rem; padding: .55rem .85rem; }
+}
+
+/* ==========================================================================
+   MOBILE TYPE FLOOR
+   Must live at the end of the file: the reference-layout components above are
+   appended after the main media queries, so a rule placed inside an earlier
+   @media block loses to them on source order.
+   ========================================================================== */
+@media (max-width: 900px) {
+  .logo__sub      { font-size: .7rem; letter-spacing: .2em; }
+  .logo-row small { font-size: .7rem; letter-spacing: .04em; white-space: normal; }
+  .card__flag     { font-size: .74rem; }
+  .ph             { font-size: .74rem; }
+}
+
+/* The header CTA duplicates the "Get Fitted Near You" nav link. Between the
+   nav-collapse breakpoint (900px) and ~1080px the logo + five links + button
+   no longer fit on one line and the button overhangs the viewport, so drop it
+   first and let the nav link carry the action. */
+@media (max-width: 1080px) {
+  .nav__cta { display: none; }
+}
+
+/* The journey timeline drops 5 -> 2 columns at 1024px but had no further
+   fallback; two columns plus the gap overflow a 320px device. */
+@media (max-width: 560px) {
+  .timeline { grid-template-columns: 1fr; }
+  .timeline .tl--now { grid-column: auto; }
+}
+
+/* ==========================================================================
+   BRAND REFRESH
+   Design devices taken from the client's own caldentalusa.com, which they
+   hold up as the look they want: navy utility bar over a WHITE header, the
+   badge logo, red hand-drawn underline on headings, oversized red step
+   numerals, outline pill tags, and a navy pull-quote card.
+   Loads after everything above, so these win on source order.
+   ========================================================================== */
+
+/* --- Utility bar -------------------------------------------------------- */
+.topbar {
+  background: var(--navy-900);
+  color: #fff;
+  padding: 0;
+  text-align: left;
+  font-size: .76rem;
+  letter-spacing: .01em;
+  text-transform: none;
+  font-weight: 600;
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 38px;
+  flex-wrap: wrap;
+}
+
+.topbar__chips {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.topbar__chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: rgba(255, 255, 255, .82);
+  white-space: nowrap;
+}
+
+.topbar__chips svg { width: 14px; height: 14px; color: var(--red-400); flex-shrink: 0; }
+
+.topbar__chips a {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  text-decoration: none;
+  font-weight: 700;
+  color: #fff;
+  transition: color .2s var(--ease);
+}
+.topbar__chips a:hover { color: var(--red-400); }
+
+.topbar .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #35c26a; flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(53, 194, 106, .22);
+}
+
+/* --- White header ------------------------------------------------------- */
+.site-header {
+  background: rgba(255, 255, 255, .94);
+  border-bottom: 1px solid var(--slate-200);
+  box-shadow: 0 1px 0 rgba(5, 13, 28, .04);
+}
+
+.site-header.is-stuck {
+  background: rgba(255, 255, 255, .985);
+  box-shadow: 0 6px 24px rgba(5, 13, 28, .09);
+}
+
+/* The badge is a tall shield, not a horizontal wordmark — it needs real
+   height before "CAL GUARD USA" is legible. */
+.nav { min-height: 98px; }
+
+.logo__img {
+  height: clamp(54px, 6.4vw, 78px);
+  width: auto;
+}
+
+.nav__links a {
+  color: var(--navy-700);
+  font-family: var(--body);
+  font-size: .92rem;
+  font-weight: 600;
+  letter-spacing: .005em;
+  text-transform: none;
+}
+
+.nav__links a:hover,
+.nav__links a[aria-current="page"] { color: var(--red-500); }
+.nav__links a::after { background: var(--red-500); }
+
+.nav__cta { display: flex; align-items: center; gap: .9rem; }
+
+.nav__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .6rem 1.1rem;
+  border: 1px solid var(--slate-200);
+  border-radius: 999px;
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--navy-800);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease);
+}
+
+.nav__phone svg { width: 15px; height: 15px; color: var(--red-500); }
+.nav__phone:hover {
+  border-color: var(--red-500);
+  color: var(--red-600);
+  box-shadow: 0 6px 18px rgba(224, 27, 36, .14);
+}
+
+.nav__toggle { border-color: var(--slate-300); }
+.nav__toggle span { background: var(--navy-800); }
+
+/* Mobile drawer now sits on white */
+@media (max-width: 900px) {
+  .nav__links {
+    background: rgba(255, 255, 255, .985);
+    border-bottom: 1px solid var(--slate-200);
+    box-shadow: 0 18px 40px rgba(5, 13, 28, .12);
+  }
+  .nav__links a { border-bottom: 1px solid var(--slate-100); font-size: 1rem; }
+}
+
+/* --- Hand-drawn underline on headings ----------------------------------- */
+/* The single most recognisable device on the client's own site. */
+.uline { position: relative; display: inline-block; }
+
+.uline::after {
+  content: "";
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  bottom: -.34em;
+  height: .28em;
+  background: no-repeat center/100% 100%
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 10.5C38 4 86 1.6 129 3.4c24 1 47 3.4 68 7.2' fill='none' stroke='%23e01b24' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.section--dark .uline::after,
+.cta .uline::after,
+.quote-band .uline::after {
+  filter: brightness(1.25);
+}
+
+/* --- Eyebrow: match their small red label ------------------------------- */
+.eyebrow {
+  font-family: var(--body);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+}
+
+/* --- Steps: oversized red numerals -------------------------------------- */
+.step__num {
+  width: auto;
+  height: auto;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--red-500);
+  margin-bottom: .6rem;
+  letter-spacing: -.03em;
+}
+
+.step:not(:last-child)::after { top: 22px; left: 64px; }
+.reveal.is-visible .step__num { animation: none; }
+
+/* --- Outline pill tags --------------------------------------------------- */
+.tags { display: flex; flex-wrap: wrap; gap: .6rem; }
+
+.tags li {
+  padding: .5rem 1.1rem;
+  border: 1px solid var(--slate-200);
+  border-radius: 999px;
+  background: #fff;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--navy-700);
+  transition: border-color .25s var(--ease), color .25s var(--ease), transform .25s var(--ease);
+}
+
+.tags li:hover {
+  border-color: var(--red-500);
+  color: var(--red-600);
+  transform: translateY(-2px);
+}
+
+.section--dark .tags li {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .18);
+  color: var(--slate-200);
+}
+
+/* --- Navy pull-quote card ------------------------------------------------ */
+.pullquote {
+  position: relative;
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.5rem, 3.5vw, 2.5rem);
+  background: var(--navy-900);
+  border-left: 5px solid var(--red-500);
+  border-radius: var(--radius);
+  color: #fff;
+  box-shadow: var(--shadow-md);
+}
+
+.pullquote::before {
+  content: "\C";
+  position: absolute;
+  top: -.1em;
+  right: .4rem;
+  font-family: var(--display);
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--red-500);
+  opacity: .9;
+}
+
+.pullquote p {
+  position: relative;
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 1.9vw, 1.5rem);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.45;
+  color: #fff;
+  margin: 0;
+}
+
+.pullquote cite {
+  display: block;
+  margin-top: 1.1rem;
+  font-family: var(--body);
+  font-size: .78rem;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--red-400);
+}
+
+/* --- Underlined text link (their secondary CTA) -------------------------- */
+.tlink {
+  display: inline-block;
+  padding-bottom: .35rem;
+  border-bottom: 2px solid var(--red-500);
+  font-family: var(--body);
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+  transition: color .25s var(--ease), border-color .25s var(--ease), gap .25s var(--ease);
+}
+
+.tlink:hover { color: var(--red-500); border-color: var(--navy-900); }
+
+/* --- Quote band: red quote mark ----------------------------------------- */
+.quote-band__quote { position: relative; font-style: italic; font-weight: 600; }
+
+.quote-band__quote::before {
+  content: "\C";
+  position: absolute;
+  left: -.45em;
+  top: -.28em;
+  font-size: 2.6em;
+  line-height: 1;
+  color: var(--red-500);
+  opacity: .5;
+  pointer-events: none;
+}
+
+/* --- Strip: a touch more character --------------------------------------- */
+.strip { font-weight: 800; letter-spacing: -.01em; }
+
+@media (max-width: 900px) {
+  .nav__phone { display: none; }
+  .topbar__chips li:not(:last-child) { display: none; }
+  .topbar__chips--right { margin-left: auto; }
+}
+
+@media (max-width: 600px) {
+  .topbar { font-size: .7rem; }
+  .topbar__inner { min-height: 34px; justify-content: center; }
+  .logo__img { height: 48px; }
+  .nav { min-height: 74px; }
+}
+
+/* The refresh block above re-declares .nav__cta as flex, which re-beat the
+   earlier hide rule on source order. The header is wider now (logo + five
+   links + phone pill + button), so drop the pill first, then the whole group.
+   Both numbers are in the topbar regardless. */
+@media (max-width: 1240px) {
+  .nav__phone { display: none; }
+}
+
+@media (max-width: 1140px) {
+  .nav__cta { display: none; }
 }

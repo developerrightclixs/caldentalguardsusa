@@ -175,6 +175,48 @@ shapes and ascender rhythm, and the reference site doesn't do it either. Caps ar
 genuinely small labels: `.eyebrow`, `.card__label`, buttons, nav, roles and the logo. The decorative
 rules that used to flank every centred eyebrow were removed for the same reason.
 
+## Brand refresh (client round 2)
+
+Client feedback was *"all look the same, font and stuff — can we make something more exciting,
+that's why I like my Cal Dental USA site."* So the devices here are lifted from
+**caldentalusa.com**, the client's own site, rather than invented:
+
+| Device | Where it came from |
+| --- | --- |
+| Navy utility bar with icon chips above the header | Their top bar (Open Sundays / 26+ offices / phone) |
+| **White** sticky header, navy nav, phone pill + red CTA | Theirs is white, not dark |
+| Red hand-drawn underline swipe on key headings | Their most recognisable accent (inline SVG, `.uline`) |
+| Oversized red `01 / 02 / 03` step numerals | Their "How It Works" row |
+| Outline pill tags (`.tags`) | Their service tags |
+| Navy pull-quote card, red quote mark, blue left border (`.pullquote`) | Their testimonial card |
+| Underlined text-link CTA (`.tlink`) | Their "SCHEDULE AN APPOINTMENT" link |
+
+**Fonts:** Raleway (display) + Manrope (body), replacing Afacad + Urbanist. Raleway is lighter-
+footed, so heading weight went to 800 and sizes came down a step.
+
+**Logo:** `logo.jpeg` is now the site mark. The white studio background was keyed out and the art
+trimmed to `assets/img/cal-guard-usa-logo.png` (full res) and `logo-mark.png` (header, 300px).
+It's a tall shield badge rather than a horizontal wordmark, so the header is 98px to let
+"CAL GUARD USA" stay legible.
+
+**Contact:** Ian@caldentalusa.com and (800) 963-5553 are live in every header, footer and contact
+block, replacing the placeholders.
+
+### ⚠ Brand name needs a decision
+
+The new logo reads **CAL GUARD USA** — singular "GUARD", and "USA" rather than "Cal Dental
+Ventures". Every page of body copy still says **"Cal Guards"** and credits Cal Dental Ventures.
+The logo is used as an image so nothing is broken, but a reader will notice the mismatch.
+
+Three options, all cheap — it's a find-and-replace:
+1. Rename the product throughout to **Cal Guard USA** (matches the logo).
+2. Keep **Cal Guards™** as the product, **Cal Guard USA** as the company mark — then the footer
+   trademark line needs rewording.
+3. Get a logo variant that says Cal Guards.
+
+Nothing else should ship until this is settled, since it affects every page's copy and the
+`<title>`/meta on all six.
+
 ## Layout & spacing
 
 Tuned against the client's review screenshots (kept in `Fixes/`). The complaints were
@@ -258,7 +300,25 @@ contact page is easier to maintain and gives visitors a mailto/tel they can act 
 - Tested at 1366px. Breakpoints at 1024px, 900px (nav collapses to a hamburger), 700px, 600px.
 - Verified on all six pages: no console errors from site code, no horizontal overflow, no broken
   images, all scroll reveals resolve.
-- Mobile layout is written against the breakpoints but has **not** been eyeballed — the test browser
-  would not resize below the OS minimum window width. Worth a look on a real phone.
+- **Mobile is tested.** The browser window wouldn't resize below the OS minimum, so QA ran through
+  a same-origin iframe harness — media queries resolve against the iframe viewport, so the layout
+  is genuine. Audited at **320 / 360 / 390 / 430 / 600 / 768 / 900 / 1024 / 1180 / 1366px** across
+  all six pages: zero horizontal overflow, zero tap targets under 40px, no text under 10.2px.
+
+  Five real bugs were found and fixed in that pass:
+  1. `.hero__media` set a `height` on mobile while inheriting `inset: 0` — `top` beats `bottom`, so
+     the image anchored to the *top* of the hero and ran the brand swoosh through the subheading.
+     The mobile hero is now a full-bleed cover.
+  2. Directional (`left`/`right`) scroll reveals pushed content outside a narrow viewport and were
+     clipped; they collapse to a fade-up at ≤1024px.
+  3. The header CTA overflowed between the 900px nav-collapse point and ~1080px. It duplicates the
+     "Get Fitted Near You" nav link, so it is hidden at ≤1080px.
+  4. The journey timeline went 5 → 2 columns at 1024px with no further fallback and overflowed a
+     320px device. Single column at ≤560px.
+  5. The hero CTA wrapped to two lines at 360px; large buttons are tightened at ≤600px.
+
+  Note the ordering trap that caused two of these: the reference-layout components are appended
+  **after** the main media queries, so a mobile override placed in an earlier `@media` block loses
+  on source order. Mobile overrides for those components live in blocks at the very end of the file.
 - When testing locally, hard-reload (Ctrl+Shift+R) after editing `main.js` — the dev server sends
   cacheable responses and Chrome will happily serve a stale copy.
