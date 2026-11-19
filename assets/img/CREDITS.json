@@ -39,17 +39,14 @@
    "file": "cal-guards-journey.jpg",
    "source": "Client-supplied product render (Cal Dental Ventures)",
    "note": "Journey infographic"
+  },
+  {
+   "file": "athlete-basketball.jpg",
+   "source": "Client-supplied athlete photograph",
+   "note": "Palos Verdes Sea Kings basketball player, #25. Used in the first athlete quote band on the home page."
   }
  ],
  "stock": [
-  {
-   "file": "athlete-football.jpg",
-   "pexels_id": "274577",
-   "page": "https://www.pexels.com/photo/274577/",
-   "size": "1100x1450",
-   "kb": 243,
-   "source": "Pexels (free for commercial use, no attribution required)"
-  },
   {
    "file": "athlete-boxing.jpg",
    "pexels_id": "30323312",

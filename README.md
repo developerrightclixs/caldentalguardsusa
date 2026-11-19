@@ -194,10 +194,24 @@ that's why I like my Cal Dental USA site."* So the devices here are lifted from
 **Fonts:** Raleway (display) + Manrope (body), replacing Afacad + Urbanist. Raleway is lighter-
 footed, so heading weight went to 800 and sizes came down a step.
 
-**Logo:** `logo.jpeg` is now the site mark. The white studio background was keyed out and the art
-trimmed to `assets/img/cal-guard-usa-logo.png` (full res) and `logo-mark.png` (header, 300px).
-It's a tall shield badge rather than a horizontal wordmark, so the header is 98px to let
-"CAL GUARD USA" stay legible.
+**Logo:** `logo.png` (client-supplied, 6144 x 4096, real alpha) is the master. An earlier pass
+keyed the background out of `logo.jpeg`; that version is superseded — the supplied PNG has proper
+transparency with no keying halo.
+
+Derived web assets, both trimmed to the artwork's bounding box:
+
+| File | Size | Weight | Use |
+| --- | --- | --- | --- |
+| `assets/img/logo-mark.png` | 400 x 320 | **27 KB** | Header + footer, every page |
+| `assets/img/cal-guard-usa-logo.png` | 1400 x 1118 | 159 KB | Larger lockups, print |
+
+Both are 256-colour quantised. On a glossy chrome badge that's visually identical to full-depth
+PNG (checked side by side at 100%) but 5.6x lighter — 27 KB instead of 146 KB on every page load.
+WebP came in at 32 KB, so the PNG wins on both weight and compatibility; no `<picture>` fallback
+needed.
+
+It's a tall shield badge rather than a horizontal wordmark, so the header is 98px tall to keep
+"CAL GUARD USA" legible, dropping to 74px on phones.
 
 **Contact:** Ian@caldentalusa.com and (800) 963-5553 are live in every header, footer and contact
 block, replacing the placeholders.

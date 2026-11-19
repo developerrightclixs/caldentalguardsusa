@@ -1,0 +1,83 @@
+{
+ "client_supplied": [
+  {
+   "file": "cal-guards-arch-plate.jpg",
+   "source": "Client-supplied product render (Cal Dental Ventures)",
+   "note": "Upper Jaw - Full Roof of Mouth View, full branded plate"
+  },
+  {
+   "file": "cal-guards-side-plate.jpg",
+   "source": "Client-supplied product render (Cal Dental Ventures)",
+   "note": "Upper Jaw - Right Side View, full branded plate"
+  },
+  {
+   "file": "cal-guards-ramp-plate.jpg",
+   "source": "Client-supplied product render (Cal Dental Ventures)",
+   "note": "Patented Anterior Ramp Design, full branded plate"
+  },
+  {
+   "file": "guard-arch.jpg",
+   "source": "Client-supplied product render (Cal Dental Ventures)",
+   "note": "Product-only crop of the arch plate"
+  },
+  {
+   "file": "guard-side.jpg",
+   "source": "Client-supplied product render (Cal Dental Ventures)",
+   "note": "Product-only crop of the side-view plate"
+  },
+  {
+   "file": "cal-guards-hero.jpg",
+   "source": "Client-supplied product render (Cal Dental Ventures)",
+   "note": "Original key visual"
+  },
+  {
+   "file": "cal-guards-product.jpg",
+   "source": "Client-supplied product render (Cal Dental Ventures)",
+   "note": "Product-only crop of the key visual"
+  },
+  {
+   "file": "cal-guards-journey.jpg",
+   "source": "Client-supplied product render (Cal Dental Ventures)",
+   "note": "Journey infographic"
+  },
+  {
+   "file": "athlete-basketball.jpg",
+   "source": "Client-supplied athlete photograph",
+   "note": "Palos Verdes Sea Kings basketball player, #25. Used in the first athlete quote band on the home page."
+  }
+ ],
+ "stock": [
+  {
+   "file": "athlete-boxing.jpg",
+   "pexels_id": "30323312",
+   "page": "https://www.pexels.com/photo/30323312/",
+   "size": "1100x1450",
+   "kb": 154,
+   "source": "Pexels (free for commercial use, no attribution required)"
+  },
+  {
+   "file": "fitting.jpg",
+   "pexels_id": "19976568",
+   "page": "https://www.pexels.com/photo/19976568/",
+   "size": "1000x1000",
+   "kb": 106,
+   "source": "Pexels (free for commercial use, no attribution required)"
+  },
+  {
+   "file": "clinic.jpg",
+   "pexels_id": "7800666",
+   "page": "https://www.pexels.com/photo/7800666/",
+   "size": "1000x1000",
+   "kb": 126,
+   "source": "Pexels (free for commercial use, no attribution required)"
+  },
+  {
+   "file": "smile.jpg",
+   "pexels_id": "7298650",
+   "page": "https://www.pexels.com/photo/7298650/",
+   "size": "1000x1000",
+   "kb": 129,
+   "source": "Pexels (free for commercial use, no attribution required)"
+  }
+ ]
+}
