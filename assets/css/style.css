@@ -2024,28 +2024,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .nav__cta { display: flex; align-items: center; gap: .9rem; }
 
-.nav__phone {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .6rem 1.1rem;
-  border: 1px solid var(--slate-200);
-  border-radius: 999px;
-  font-size: .88rem;
-  font-weight: 700;
-  color: var(--navy-800);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: border-color .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease);
-}
-
-.nav__phone svg { width: 15px; height: 15px; color: var(--red-500); }
-.nav__phone:hover {
-  border-color: var(--red-500);
-  color: var(--red-600);
-  box-shadow: 0 6px 18px rgba(224, 27, 36, .14);
-}
-
 .nav__toggle { border-color: var(--slate-300); }
 .nav__toggle span { background: var(--navy-800); }
 
@@ -2147,7 +2125,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 .pullquote::before {
-  content: "\C";
+  /* U+201C, the opening curly quote. The literal had lost its "20" to an
+     encoding round-trip, so the decorative mark never rendered. */
+  content: "\201C";
   position: absolute;
   top: -.1em;
   right: .4rem;
@@ -2218,7 +2198,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .strip { font-weight: 800; letter-spacing: -.01em; }
 
 @media (max-width: 900px) {
-  .nav__phone { display: none; }
   .topbar__chips li:not(:last-child) { display: none; }
   .topbar__chips--right { margin-left: auto; }
 }
@@ -2230,14 +2209,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav { min-height: 74px; }
 }
 
-/* The refresh block above re-declares .nav__cta as flex, which re-beat the
-   earlier hide rule on source order. The header is wider now (logo + five
-   links + phone pill + button), so drop the pill first, then the whole group.
-   Both numbers are in the topbar regardless. */
-@media (max-width: 1240px) {
-  .nav__phone { display: none; }
-}
-
-@media (max-width: 1140px) {
+/* The refresh block above re-declares .nav__cta as flex, which re-beats the
+   earlier hide rule on source order. With seven nav links, the logo + links +
+   button stop fitting on one line here, so drop the button and let the nav
+   itself carry the action. The phone number lives in the topbar. */
+@media (max-width: 1200px) {
   .nav__cta { display: none; }
 }
